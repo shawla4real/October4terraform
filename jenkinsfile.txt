@@ -1,6 +1,10 @@
 pipeline {
     agent any
-         stage('SCM checkout'){
+    tools {
+        terraform 'terraform2'
+    }
+    stages{
+        stage('SCM checkout'){
              steps{
             git credentialsId: '5711feab-cdf4-4169-93db-d20d1864b81e', url: 'https://github.com/shawla4real/terraform.tf'
          }
@@ -10,21 +14,22 @@ pipeline {
              sh '''terraform init
 ''' 
          }   
-        }
+    }
         stage('Terraform plan'){
          steps{
              sh '''terraform plan
 ''' 
          }   
-        }
+    }
         stage('Terraform apply'){
          steps{
              sh '''terraform apply --auto-approve
 '''  
+            }
          }   
-        }
     }
- }
+}
     
              
+                        
                         
