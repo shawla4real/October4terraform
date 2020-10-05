@@ -1,23 +1,29 @@
+properties([gitLabConnection(''), parameters([choice(choices: ['', 'apply', 'destroy'], description: 'configure parameters ', name: 'terraform_state')])])
 pipeline {
     agent any
-	tools {
+    tools {
         terraform 'terraform2'
     }
     stages{
-            stage('SCM Checkout'){
-                steps{
-	            git 'https://github.com/shawla4real/terraform10-4.git'
-                    }
+        stage('SCM checkout'){
+             steps{
+            git 'https://github.com/shawla4real/terraform.tf'
+         }
+    }
+        stage('Terraform Init'){
+         steps{
+             sh '''terraform init''' 
+         }   
+    }
+        stage('Terraform plan'){
+         steps{
+             sh '''terraform plan''' 
+         }   
+    }
+        stage('Terraform state'){
+         steps{
+             sh '''terraform "${terraform_state}" --auto-approve'''  
             }
-            stage('Terraform Init'){
-                steps{
-	            sh 'terraform init'
-                    }
-            }
-			stage('Terraform apply'){
-                steps{
-	            sh 'terraform "${terraform_state}" --auto-approve'
-                    }
-            }
-     }
+         }   
+    }
 }
