@@ -140,20 +140,20 @@ tags = {
   }
 
 }
-resource "aws_instance" "web" {
-  ami           = "ami-000db10762d0c4c05"
-  instance_type = "t2.micro"
-  key_name = "hpkey"
-  subnet_id      = "${aws_subnet.subnet1.id}"
-  security_groups = ["${aws_security_group.terra-sh-jump.id}"]
-  user_data = <<-EOF
-	  #! /bin/bash
-    sudo yum update -y
-	  sudo yum install httpd -y
-	  sudo systemctl start httpd
-    EOF
+#resource "aws_instance" "web" {
+ # ami           = "ami-000db10762d0c4c05"
+ # instance_type = "t2.micro"
+#  key_name = "hpkey"
+#  subnet_id      = "${aws_subnet.subnet1.id}"
+#  security_groups = ["${aws_security_group.terra-sh-jump.id}"]
+#  user_data = <<-EOF
+#	  #! /bin/bash
+#    sudo yum update -y
+#	  sudo yum install httpd -y
+#	  sudo systemctl start httpd
+ #   EOF
 
-  tags = {
-    Name = "Sola terraform isntance"
-  }
-}
+  #tags = {
+  #  Name = "Sola terraform isntance"
+ # }
+#}
