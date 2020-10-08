@@ -7,7 +7,7 @@ pipeline {
     stages{
         stage('SCM checkout'){
              steps{
-            git 'https://github.com/shawla4real/terraform.tf'
+            git credentialsId: '10c04b1d-2af2-49b1-ac3b-f4204caba879', url: 'https://github.com/shawla4real/terraform10-4'
          }
     }
         stage('Terraform Init'){
