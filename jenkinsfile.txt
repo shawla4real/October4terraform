@@ -2,7 +2,7 @@ properties([gitLabConnection(''), parameters([choice(choices: ['', 'apply', 'des
 pipeline {
     agent any
     tools {
-        terraform 'terraform2'
+        terraform 'terraform'
     }
     stages{
         stage('SCM checkout'){
