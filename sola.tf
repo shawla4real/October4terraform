@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# Create a VPC
+//Create a VPC
 resource "aws_vpc" "jpvpc" {
   cidr_block = "10.0.0.0/16"
 
@@ -11,7 +11,7 @@ resource "aws_vpc" "jpvpc" {
   }
 
 }
-# create subnet
+//create subnet
 resource "aws_subnet" "subnet1" {
   vpc_id     = aws_vpc.jpvpc.id
   cidr_block = "10.0.1.0/24"
