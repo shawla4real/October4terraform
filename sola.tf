@@ -12,8 +12,8 @@ resource "aws_vpc" "tonivpc" {
 
 }
 //create subnet
-resource "aws_subnet" "tonipub" {
-  vpc_id     = aws_vpc.jpvpc.id
+resource "aws_subnet" "subnet1" {
+  vpc_id     = aws_vpc.tonivpc.id
   cidr_block = "10.0.1.0/24"
   map_public_ip_on_launch         = true
   tags = {
@@ -23,7 +23,7 @@ resource "aws_subnet" "tonipub" {
 
 # create subnet2
 resource "aws_subnet" "subnet2" {
-  vpc_id     = aws_vpc.jpvpc.id
+  vpc_id     = aws_vpc.tonivpc.id
   cidr_block = "10.0.2.0/24"
 
   tags = {
@@ -33,7 +33,7 @@ resource "aws_subnet" "subnet2" {
 }
 #create IGW
 resource "aws_internet_gateway" "terraGW" {
-  vpc_id = "${aws_vpc.jpvpc.id}"
+  vpc_id = "${aws_vpc.tonivpc.id}"
 
   tags = {
     Name = "terraGW"
@@ -56,7 +56,7 @@ resource "aws_nat_gateway" "terragw" {
 }
 #create Route table 
 resource "aws_route_table" "terraroute" {
-  vpc_id = aws_vpc.jpvpc.id
+  vpc_id = aws_vpc.tonivpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -70,7 +70,7 @@ resource "aws_route_table" "terraroute" {
 
 #create route table2
 resource "aws_route_table" "terraroute2" {
-  vpc_id = aws_vpc.jpvpc.id
+  vpc_id = aws_vpc.tonivpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
@@ -93,7 +93,7 @@ resource "aws_route_table_association" "terraroute2" {
 }
 # create Security group for jump server
 resource "aws_security_group" "terra-sh-jump" {
-  vpc_id = aws_vpc.jpvpc.id
+  vpc_id = aws_vpc.tonivpc.id
 
   ingress {
     from_port   = 80
@@ -106,7 +106,7 @@ resource "aws_security_group" "terra-sh-jump" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["73.129.56.75/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
@@ -121,7 +121,7 @@ tags = {
 }
 
 resource "aws_security_group" "terra-sh-private" {
-  vpc_id = aws_vpc.jpvpc.id
+  vpc_id = aws_vpc.tonivpc.id
 
   ingress {
     from_port   = 22
